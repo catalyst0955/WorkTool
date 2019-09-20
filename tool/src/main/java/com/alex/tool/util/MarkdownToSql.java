@@ -1,6 +1,7 @@
 package com.alex.tool.util;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +16,7 @@ public class MarkdownToSql {
 
         for (File sf : ed3) {
             StringBuilder sb = new StringBuilder();
-            try(BufferedReader br = new BufferedReader(new FileReader(sf.getPath()))){
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(sf), StandardCharsets.UTF_8))){
                 String s = null;
                 ArrayList<String> keyList = new ArrayList<>();
                 int line = 0;
