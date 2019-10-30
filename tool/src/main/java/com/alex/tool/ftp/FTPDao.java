@@ -1,4 +1,4 @@
-package com.alex.ftp;
+package com.alex.tool.ftp;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;

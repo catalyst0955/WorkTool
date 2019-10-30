@@ -1,4 +1,4 @@
-package com.alex.db.configInterface;
+package com.alex.tool.db.configInterface;
 
 /** DB連線設定的Base */
 public interface IBaseDBConfig {

@@ -1,6 +1,6 @@
-package com.alex.exception;
+package com.alex.tool.exception;
 
-import com.alex.http.response.WebResult;
+import com.alex.tool.http.response.WebResult;
 
 public class ErrorResultException extends RuntimeException {
     private static final long serialVersionUID = 1L;

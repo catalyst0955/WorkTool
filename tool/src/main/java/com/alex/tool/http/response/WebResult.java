@@ -1,4 +1,4 @@
-package com.alex.http.response;
+package com.alex.tool.http.response;
 
 import com.google.gson.GsonBuilder;
 

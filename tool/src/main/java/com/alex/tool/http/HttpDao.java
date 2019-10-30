@@ -1,4 +1,4 @@
-package com.alex.http;
+package com.alex.tool.http;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -25,7 +25,6 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
 import java.io.File;
