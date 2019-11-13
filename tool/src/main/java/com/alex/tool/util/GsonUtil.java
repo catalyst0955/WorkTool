@@ -34,16 +34,17 @@ public class GsonUtil {
 
     public static <T> T mergeForTest(Object prime, Object other, Class<T> clazz, boolean isDb) {
         Gson gson = new Gson();
-        HashMap<String, String> otherMap = gson.fromJson(gson.toJson(other), HashMap.class);
+        HashMap<String, Object> otherMap = gson.fromJson(gson.toJson(other), HashMap.class);
+        HashMap<String, Object> primeMap = gson.fromJson(gson.toJson(prime), HashMap.class);
         Class<?> aClass = prime.getClass();
         for (Field declaredField : aClass.getDeclaredFields()) {
             MergeAlias annotation = declaredField.getAnnotation(MergeAlias.class);
             if (annotation != null) {
                 for (String s : annotation.value()) {
-                    String s1 = otherMap.get(s);
+                    Object s1 = otherMap.get(s);
                     if (s1 != null) {
                         try {
-                            Method method = aClass.getMethod("set" + changeFirstToUpperCase(declaredField.getName()), aClass);
+                            Method method = aClass.getMethod("set" + changeFirstToUpperCase(declaredField.getName()), String.class);
                             method.invoke(prime, s1);
                             otherMap.remove(s);
                         } catch (NoSuchMethodException e) {
@@ -57,8 +58,8 @@ public class GsonUtil {
                 }
             }
         }
-        HashMap<String, String> primeMap = gson.fromJson(gson.toJson(prime), HashMap.class);
-        Map<String, String> stringStringMap = null;
+
+        Map<String, Object> stringStringMap = null;
         if (isDb) {
             stringStringMap = changeFirstToUpperCase(otherMap);
         } else {
@@ -68,7 +69,7 @@ public class GsonUtil {
         return gson.fromJson(gson.toJson(primeMap), clazz);
     }
 
-    private static Map<String, String> changeFirstToUpperCase(HashMap<String, String> o) {
+    private static Map<String, Object> changeFirstToUpperCase(HashMap<String, Object> o) {
         return o.entrySet().stream().collect(Collectors.toMap(
                 entry -> {
                     String key = String.valueOf(entry.getKey());
@@ -81,7 +82,7 @@ public class GsonUtil {
         return key.substring(0, 1).toUpperCase() + key.substring(1);
     }
 
-    private static Map<String, String> changeFirstToLowerCase(HashMap<String, String> o) {
+    private static Map<String, Object> changeFirstToLowerCase(HashMap<String, Object> o) {
         return o.entrySet().stream().collect(Collectors.toMap(
                 entry -> {
                     String key = String.valueOf(entry.getKey());
